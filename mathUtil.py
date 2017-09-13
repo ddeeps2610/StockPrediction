@@ -2,10 +2,10 @@
 import pandas as pd
 
 
-def getRollingMean(data, window):
+def getRollingMean(data, window=20):
     return data.rolling(window=window, center=False).mean()
 
-def getRollingStd(data, window):
+def getRollingStd(data, window=20):
     return data.rolling(window=window, center=False).std()
 
 def getBollingerBands(rMean, rStd):
