@@ -24,4 +24,4 @@ def computeDailyReturns(df):
     return dailyReturns
 
 def computeCumulativeReturns(df):
-    return (df/df[0]) - 1
+    return (df/df.ix[0]) - 1

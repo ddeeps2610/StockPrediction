@@ -10,13 +10,7 @@ import dataUtil
 import models
 
 
-def testRun():
-    startDate = '2016-01-01'
-    endDate = '2017-09-01'
-    dates = pd.date_range(startDate, endDate)
-    symbols = ['HCP', 'SPY', 'GOOG', 'FB', 'AAPL', 'GBTC', 'TSLA']
-    stocks = dataUtil.getData(symbols, dates)
-   
+def testRun(stocks):
     # Slice the data for the required duration
     data = dataUtil.sliceData(stocks, '2017-07-01', '2017-09-01')
   
@@ -40,15 +34,25 @@ def testRun():
     plt.show()
   
 
-def runPlotBollinger():
+def runPlotBollinger(stocks):
+    models.plotBollinger(stocks['SPY'], window=20)
+    
+def testDailyReturns(stocks):
+    dailyReturns = mathUtil.computeDailyReturns(stocks) 
+    dataUtil.plotStocks(dailyReturns, title='Daily Returns')
+
+def testCumulativeReturns(stocks):
+    cumReturns = mathUtil.computeCumulativeReturns(stocks)
+    dataUtil.plotStocks(cumReturns, title='Cumulative Returns')
+
+if __name__ == '__main__':
     startDate = '2015-01-01'
     endDate = '2017-09-01'
     dates = pd.date_range(startDate, endDate)
     symbols = ['HCP', 'SPY', 'GOOG', 'FB', 'AAPL', 'GBTC', 'TSLA']
     stocks = dataUtil.getData(symbols, dates)
-    models.plotBollinger(stocks['SPY'], window=20)
-    
-if __name__ == '__main__':
-    #testRun()
-    runPlotBollinger()
- 
+
+    #testRun(stocks)
+    runPlotBollinger(stocks)
+    testDailyReturns(stocks)
+    testCumulativeReturns(stocks) 
